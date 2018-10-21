@@ -7,4 +7,7 @@ Modules
 Recipe module 
 Search module
 
+Used stack:
+Javascript, ES6, Webpack
+
 
