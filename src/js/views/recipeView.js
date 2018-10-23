@@ -96,7 +96,7 @@ export const displayRecipe = recipe => {
                 
 
                
-            <button class="btn-small recipeBtn">
+            <button class="btn-small recipeBtn recipeBtn-add">
                 <svg class="searchIcon">
                     <use href="img/icons.svg#icon-shopping-cart"></use>
                 </svg>
