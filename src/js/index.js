@@ -1,18 +1,9 @@
 // // Global app controller
-// //default
-// import string from './models/Search';
-// //named multiple things
-// //import {add as a, multiply as m, ID} from './views/searchView';
-// ///import all from the file
-// import * as searchView from './views/searchView';
-
-//API
-//https://www.food2fork.com/api/search
-//API Key: e073fa7812f8f49ab1078d85ffc844dc
 
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import {elements, displayLoader, clearLoader} from './views/base';
 
 /*Global state of the app
@@ -72,6 +63,11 @@ const controlRecipe = async () => {
     const id = window.location.hash.replace('#', '');
     if(id){
         //prepare ui for changes
+        recipeView.clearRecipe();
+        displayLoader(elements.recipe);
+
+        //Highlight the selected item
+        if(state.search) searchView.highlightSeleted(id);
         //create new recipe object
         state.recipe = new Recipe(id);
 
@@ -84,7 +80,9 @@ const controlRecipe = async () => {
         state.recipe.calcTime();
         state.recipe.calcServings();
         //display recipe
-        console.log(state.recipe);
+        clearLoader();
+        recipeView.displayRecipe(state.recipe);
+
         } catch(error){
             alert(`Error processing recipe: ${error}`);
         }
@@ -96,3 +94,20 @@ const controlRecipe = async () => {
 //window.addEventListener('load', controlRecipe);
 //same but in one line
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
+
+//Handling recipe button clicks
+elements.recipe.addEventListener('click', e => {
+    if( e.target.matches('.btn-decrease, .btn-decrease *')){
+        //decrease button is clicked
+        if(state.recipe.servings > 1){
+            state.recipe.updateServings('dec');
+            recipeView.updateServingsIngredients(state.recipe);
+        }
+    } else if(e.target.matches('.btn-increase, .btn-increase *')){
+        //increase button is clicked
+        state.recipe.updateServings('inc');
+        recipeView.updateServingsIngredients(state.recipe);
+}
+
+    console.log(state.recipe);
+});

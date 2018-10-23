@@ -1,4 +1,4 @@
-// export default 'I am an exported string!';
+
 import axios from 'axios';
 import { key, proxy} from '../config';
 
