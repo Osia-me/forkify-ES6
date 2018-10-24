@@ -25,6 +25,7 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "fractional": "^1.0.0",
+    "fs": "0.0.1-security",
     "uniqid": "^5.0.3"
   }
 }
