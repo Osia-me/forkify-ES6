@@ -14,6 +14,7 @@ import {elements, displayLoader, clearLoader} from './views/base';
 *- Liked recipes
 */
 const state = {};
+window.state = state;
 
 //Search controller
 const controlSearch = async () => {
@@ -108,6 +109,25 @@ const constolList = () => {
         listView.displayItem(item);
     });
 };
+
+//Handle delete and update list item events
+elements.shoppingList.addEventListener('click', event => {
+    const id = event.target.closest('.shoppingItem').dataset.id;
+    console.log(event.target.closest('.shoppingItem'));
+    //Handle delete btn
+    if (event.target.matches('.shoppingDelete, .shoppingDelete *')){
+        //Delete from state
+        console.log("Deleted");
+        state.list.deleteItem(id);
+        //Delete from  UI
+        listView.deleteItem(id);
+
+    //Handle the count update
+    } else if (event.target.matches('.shoppingCount-value')){
+        const val = parseFloat(event.target.value, 10);
+        state.list.updateCount(id, val);
+    }
+});
 
 
 //Handling recipe button clicks

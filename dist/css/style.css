@@ -487,6 +487,6 @@ body {
     visibility: hidden;
     opacity: 0;
     transition: all .5s; }
-  .shoppingDtem:hover .shoppingDelete {
+  .shoppingItem:hover .shoppingDelete {
     opacity: 1;
     visibility: visible; }

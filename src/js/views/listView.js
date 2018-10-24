@@ -3,7 +3,7 @@ import { updateServingsIngredients } from './recipeView';
 
 export const displayItem = item => {
     const markUp = `
-    <li class="shoppingItem data-itemid = ${item.id}">
+    <li class="shoppingItem" data-id = "${item.id}">
         <div class="shoppingCount">
             <input type="number" value="${item.count}" step="${item.count}" class = "shoppingCount-value">
             <p>${item.unit}</p>
@@ -21,6 +21,6 @@ export const displayItem = item => {
 }
 
 export const deleteItem = id => {
-    const item = document.querySelector(`[data-itemid="${id}"]`);
-    item.parentElement.removeChild(item);
+    const item = document.querySelector(`[data-id="${id}"]`);
+    if(item) item.parentElement.removeChild(item);
 };
