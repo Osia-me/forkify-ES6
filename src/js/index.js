@@ -20,7 +20,6 @@ import { stat } from 'fs';
 *- Liked recipes
 */
 const state = {};
-window.state = state;
 
 //Search controller
 const controlSearch = async () => {
@@ -138,9 +137,6 @@ elements.shoppingList.addEventListener('click', event => {
     }
 });
 
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getNumLikes());
-
 //LIKES CONTROLLER
 const controlLike = () => {
     if(!state.likes) state.likes = new Likes();
@@ -173,6 +169,17 @@ const controlLike = () => {
     likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
 
+//Restoree liked recipes on page load
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+    //Restore likes
+    state.likes.readStorage();
+    //Toggle like menu btn
+    likesView.toggleLikeMenu(state.likes.getNumLikes());
+    //Display the existing likes
+    state.likes.likes.forEach(like => likesView.displayLike(like));
+});
+
 //Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
     if( e.target.matches('.btn-decrease, .btn-decrease *')){
@@ -195,6 +202,3 @@ elements.recipe.addEventListener('click', e => {
     }
 
 });
-
-
-window.l = new List();
